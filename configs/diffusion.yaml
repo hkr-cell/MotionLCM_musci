@@ -1,0 +1,109 @@
+FOLDER: '/mnt/disk_1/yufei/experiments_music'
+TEST_FOLDER: './experiments_music_test'
+
+NAME: 'aist++'
+
+TRAIN:
+  BATCH_SIZE: 64
+  SPLIT: 'train'
+  NUM_WORKERS: 8
+  PERSISTENT_WORKERS: true
+  SEED_VALUE: 1234
+
+
+
+  validation_steps: -1
+  validation_epochs: 20
+  checkpointing_steps: -1
+  checkpointing_epochs: 20
+  max_train_steps: -1
+  max_train_epochs: 4000
+  learning_rate: 2e-4
+  lr_scheduler: "cosine"
+  lr_warmup_steps: 1000
+  adam_beta1: 0.9
+  adam_beta2: 0.999
+  adam_weight_decay: 0.0
+  adam_epsilon: 1e-08
+  max_grad_norm: 1.0
+  model_ema: false
+  model_ema_steps: 32
+  model_ema_decay: 0.999
+
+  # Latent Consistency Distillation Specific Arguments
+  w_min: 1.0
+  w_max: 15.0
+  num_ddim_timesteps: 125
+  loss_type: 'huber'
+  huber_c: 0.001
+  ema_decay: 0.95
+
+VAL:
+  BATCH_SIZE: 32
+  SPLIT: 'test'
+  NUM_WORKERS: 12
+
+TEST:
+  BATCH_SIZE: 1
+  SPLIT: 'test'
+  NUM_WORKERS: 12
+
+  CHECKPOINTS: 'experiments_t2m/mld_humanml/mld_humanml.ckpt'
+
+  # Testing Args
+  REPLICATION_TIMES: 20
+  MM_NUM_SAMPLES: 100
+  MM_NUM_REPEATS: 30
+  MM_NUM_TIMES: 10
+  DIVERSITY_TIMES: 300
+
+DATASET:
+  NAME: 'humanml3d'
+  SMPL_PATH: '/home/yufei/MotionLCM-dev/deps/smpl_models'
+  WORD_VERTILIZER_PATH: '/home/yufei/MotionLCM-dev/deps/glove'
+  HUMANML3D:
+    FRAME_RATE: 20.0
+    UNIT_LEN: 4
+    ROOT: '/home/yufei/MotionLCM-dev/datasets/humanml3d'
+  SAMPLER:
+    MAX_LEN: 200
+    MIN_LEN: 40
+    MAX_TEXT_LEN: 20
+  PADDING_TO_MAX: false
+  WINDOW_SIZE: null
+
+METRIC:
+  DIST_SYNC_ON_STEP: true
+  TYPE: ['TM2TMetrics']
+
+model:
+  target: ['vqvaer', 'text_encoder', 'denoiser_music', 'scheduler_ddim']
+  latent_dim: [30, 512]
+  guidance_scale: 8
+  guidance_uncondp: 0.1
+
+
+batch_size: 128
+rotmat: False
+global_vel: True
+ds_rate: 8
+move: 8
+external_wav: /mnt/disk_1/yufei/datasets_dev/AISTPP_processed/aistpp_music_feat_7.5fps
+external_wav_rate: 1
+music_normalize: False
+n_music: 438 #
+n_music_emb: 768
+vqvae_expdir: /home/yufei/MotionLCM_mld/vae_recons
+data:
+    name: aist
+    train_dir: /mnt/disk_1/yufei/datasets_mld/aistpp_train
+    test_dir: /mnt/disk_1/yufei/datasets_mld/aistpp_test
+    train_real: /mnt/disk_1/yufei/datasets_dev/AISTPP_processed/aistpp_train_wav
+    test_real: /mnt/disk_1/yufei/datasets_dev/AISTPP_processed/aistpp_test_full_wav
+    seq_len: 240
+    data_type: None
+testing:
+    height: 540
+    width: 960
+    ckpt_epoch: 400
+vqvae_weight: '/home/yufei/MotionLCM-dev/Bailando_main/experiments/code30_256R_ep200/ckpt/epoch_10.pt'

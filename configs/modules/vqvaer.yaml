@@ -1,0 +1,93 @@
+structure:
+    name: SepVQVAER
+    up_half:
+    # VQVAE configs
+        levels: 1
+        downs_t: [4,]
+        strides_t : [2,]
+        emb_width : 64
+        l_bins : 256
+        l_mu : 0.99
+        commit : 0.02
+        hvqvae_multipliers : [1,]
+        width: 512
+        depth: 3
+        m_conv : 1.0
+        dilation_growth_rate : 3
+        sample_length: 240
+        use_bottleneck: True
+        joint_channel: 3
+        # depth: 3
+        # width: 128
+        # m_conv: 1.0
+        # dilation_growth_rate: 1
+        # dilation_cycle: None
+        vqvae_reverse_decoder_dilation: True
+    down_half:
+        levels: 1
+        downs_t: [4,]
+        strides_t : [2,]
+        emb_width : 64
+        l_bins : 256
+        l_mu : 0.99
+        commit : 0.02
+        hvqvae_multipliers : [1,]
+        width: 512
+        depth: 3
+        m_conv : 1.0
+        dilation_growth_rate : 3
+        sample_length: 240
+        use_bottleneck: True
+        joint_channel: 3
+        # depth: 3
+        # width: 128
+        # m_conv: 1.0
+        # dilation_growth_rate: 1
+        # dilation_cycle: None
+        acc: 1.0
+        vqvae_reverse_decoder_dilation: True
+    use_bottleneck: True
+    joint_channel: 3
+    l_bins : 512
+
+loss_weight:
+    mse_weight: 1
+
+optimizer:
+    type: Adam
+    kwargs:
+        lr: 0.00005
+        betas: [0.9, 0.999]
+        weight_decay: 0
+    schedular_kwargs:
+        gamma: 0.1
+        milestones: [100, 200]
+# schedular: []
+data:
+    name: aist
+    train_dir: /mnt/disk_1/yufei/datasets_dev/AISTPP_processed/aistpp_train_wav
+    test_dir: /mnt/disk_1/yufei/datasets_dev/AISTPP_processed/aistpp_test_full_wav
+
+    seq_len: 240
+    data_type: None
+testing:
+    height: 540
+    width: 960
+    ckpt_epoch: 500
+
+epoch: 200
+batch_size: 128
+save_per_epochs: 10
+test_freq: 10
+log_per_updates: 1
+seed: 42
+rotmat: False
+cuda: True
+global_vel: True
+ds_rate: 8
+move_train: 8
+sample_code_length: 150
+sample_code_rate: 8
+init_weight: ''
+
+analysis_pair: [[73, 346], [440, 102]]

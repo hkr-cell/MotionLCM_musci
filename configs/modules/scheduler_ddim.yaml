@@ -1,0 +1,13 @@
+scheduler:
+  target: diffusers.DDIMScheduler
+  num_inference_timesteps: 55
+  eta: 0.0
+  params:
+    num_train_timesteps: 1000
+    beta_start: 0.00085
+    beta_end: 0.012
+    beta_schedule: 'scaled_linear'
+    clip_sample: false
+    # below are for ddim
+    set_alpha_to_one: false
+    steps_offset: 1
