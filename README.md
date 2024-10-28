@@ -12,14 +12,26 @@ If you want to train model by yourself,follow
 ### Train VQVAE
 ```
 python train_vqvae.py --cfg configs/modules/vqvae.yaml<br>
-python train_vqvae.py --cfg configs/modules/vqvaer.yaml #Don't forget set the vqvae_weight
+python train_vqvae.py --cfg configs/modules/vqvaer.yaml 
 ```
+#Don't forget set the vqvae_weight
 ### Train Diffusion
 ```
-python train_diffusion.py --cfg configs/diffusion.yaml  #Don't forget set the vqvae_weight
+python train_diffusion.py --cfg configs/diffusion.yaml 
 ```
+ #Don't forget set the vqvae_weight
 ### Train Motion_LCM
 ```
-python train_motionlcm.py --cfg configs/motionlcm.yaml #Don't forget set the vqvae_weight and PRETRAINED diffusion
+python train_motionlcm.py --cfg configs/motionlcm.yaml 
 ```
-## Test your model
+#Don't forget set the vqvae_weight and PRETRAINED diffusion
+## Test Your Model
+### Test Diffusion
+```
+python test_diffusion.py --cfg configs/diffusion.yaml
+```
+### Test MotionLCM
+```
+python test_lcm.py --cfg configs/motionlcm.yaml
+```
+If you want to evaluate the pkl generated during training,use function ***calculate_metrics*** in **mld/data_process/music_data.py**
