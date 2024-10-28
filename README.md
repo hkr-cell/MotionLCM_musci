@@ -10,9 +10,11 @@ Change your model path in ***vqvaer.yaml,diffusion.yaml,motionlcm_t2m.yaml***
 ## Train Your Model
 If you want to train model by yourself,follow
 ### Train VQVAE
-''' python
+'''
+
 python train_vqvae.py --cfg configs/modules/vqvae.yaml<br>
 python train_vqvae.py --cfg configs/modules/vqvaer.yaml #Don't forget set the vqvae_weight
+
 '''
 ### Train Diffusion
 > **python train_diffusion.py --cfg configs/diffusion.yaml  #Don't forget set the vqvae_weight**
