@@ -11,7 +11,7 @@ Change your model path in ***vqvaer.yaml,diffusion.yaml,motionlcm_t2m.yaml***
 If you want to train model by yourself,follow
 ### Train VQVAE
 ```
-python train_vqvae.py --cfg configs/modules/vqvae.yaml<br>
+python train_vqvae.py --cfg configs/modules/vqvae.yaml
 python train_vqvae.py --cfg configs/modules/vqvaer.yaml 
 ```
 #Don't forget set the vqvae_weight
